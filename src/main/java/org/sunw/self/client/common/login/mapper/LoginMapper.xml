@@ -3,19 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="org.sunw.self.admin.common.login.mapper.LoginMapper">
+	namespace="org.sunw.self.client.common.login.mapper.LoginMapper">
 
 	<select id="getLoginInfo"
-		resultType="org.sunw.self.admin.common.login.domain.LoginVO">
-		SELECT MGR_ID, 
+		resultType="org.sunw.self.client.common.login.domain.LoginVO">
+		SELECT MEM_ID, 
 			PW, 
-			MGR_NAME, 
-			AUTHOR_LEVEL, 
-			PHONE, 
-			EMAIL, 
-			APPROVAL_STATUS, 
-			S_ID
-		FROM MGR
+			MEM_NAME, 
+			PHONE,
+			KAKAO_AUTHORIZATION_KEY
+		FROM MEM
 		WHERE PHONE =#{phone}
 		AND PW=#{pw}
 	</select>

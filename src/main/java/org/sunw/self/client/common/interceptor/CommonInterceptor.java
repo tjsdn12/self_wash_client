@@ -1,6 +1,5 @@
 package org.sunw.self.client.common.interceptor;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@SuppressWarnings("deprecation")
 public class CommonInterceptor extends HandlerInterceptorAdapter{
 
 	protected Log log = LogFactory.getLog(CommonInterceptor.class);

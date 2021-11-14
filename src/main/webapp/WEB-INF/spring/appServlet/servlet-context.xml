@@ -29,7 +29,7 @@
 
 	<!-- 패키지 내 Controller, Service, Repository 클래스의 auto detect를 위한 mvc 설정 -->
 	<context:component-scan
-		base-package="org.sunw.self.admin">
+		base-package="org.sunw.self.client">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation"
@@ -44,18 +44,11 @@
 			<!-- 모든 Logger에 적용되야 하기에 /** -->
 			<mapping path="/**" />
 			<exclude-mapping path="/resources/**" />
-			<exclude-mapping path="/common/login/login" />
+			<exclude-mapping path="/common/**" />
+			<exclude-mapping path="/" />
+			<exclude-mapping path="/home" />
 			<beans:bean id="commonInterceptor"
-				class="org.sunw.self.admin.common.interceptor.CommonInterceptor" />
-		</interceptor>
-	</interceptors>
-
-	<interceptors>
-		<interceptor>
-			<mapping path="/user/manager/**" />
-			<exclude-mapping path="/common/login/login" />
-			<beans:bean id="adminInterceptor"
-				class="org.sunw.self.admin.common.interceptor.AdminInterceptor"/>
+				class="org.sunw.self.client.common.interceptor.CommonInterceptor" />
 		</interceptor>
 	</interceptors>
 

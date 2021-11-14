@@ -12,26 +12,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginVO {
-
-	String mgrId;
-	String pw;
-	String mgrName;
-	String authorLevel;
-	String phone;
-	String email;
-	String approvalStatus;
-	String sId;
-	String sName;
-	public void setsId(String sId) {
-		this.sId = sId;
-	}
-	public String getsId() {
-		return this.sId;
-	}
-	public void setsName(String sName) {
-		this.sName=sName;
-	}
-	public String getsName() {
-		return this.sName;
-	}
+	private String memId;
+	private String memName; 
+	private String phone;
+	private String kakaoAuthorizationKey;
 }

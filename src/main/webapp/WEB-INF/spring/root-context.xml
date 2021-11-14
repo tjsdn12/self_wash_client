@@ -46,11 +46,11 @@
 
 	<tx:annotation-driven />
 	<mybatis-spring:scan
-		base-package="org.sunw.self.admin.**.mapper" />
+		base-package="org.sunw.self.client.**.mapper" />
 
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan
-		base-package="org.sunw.self.admin"></context:component-scan>
+		base-package="org.sunw.self.client"></context:component-scan>
 
 	<mvc:annotation-driven>
 		<mvc:message-converters>

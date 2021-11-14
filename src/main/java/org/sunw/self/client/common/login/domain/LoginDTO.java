@@ -8,8 +8,6 @@ import lombok.Data;
 public class LoginDTO extends DefaultDTO {
 
 	LoginVO loginVO;
-	
-	String mgrId;
 	String pw;
 	String phone;
 	
