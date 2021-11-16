@@ -127,6 +127,7 @@
 
 .u-section-1 .u-layout-cell-2 {
   min-height: 300px;
+  max-height: 300px;
 }
 
 .u-section-1 .u-text-8 {

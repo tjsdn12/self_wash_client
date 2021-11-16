@@ -12782,6 +12782,9 @@ section.u-image,
 .u-overlap.u-offcanvas-opened .u-header.u-sticky + section {
   z-index: -1;
 }
+section {
+	padding-top: 55px;
+}
 .u-sticky:before {
   border-style: solid;
   border-width: 0;

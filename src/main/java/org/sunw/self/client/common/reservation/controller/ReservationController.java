@@ -27,7 +27,7 @@ public class ReservationController {
 	
 	@Autowired
 	MainService mainService;
-	
+
 	
 	@GetMapping("/step/selectMachine")
 	public void selectMachine(HttpServletRequest request, Model model) {
@@ -35,15 +35,15 @@ public class ReservationController {
 		
 	}
 	
-	@PostMapping("/common/searchStore")
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public ResultDTO logInfo(@RequestBody MainDTO mainDTO) {
-		ResultDTO result = new ResultDTO();
-		List<StoreInfoVO> storeInfoList =mainService.getSearchStore(mainDTO);
-		result.setSuccess(storeInfoList!=null);
-		result.setData(storeInfoList);
-		return result;
+	@GetMapping("/step/selectWashing")
+	public void selectWashing(HttpServletRequest request, Model model) {
+		String categoryId = request.getParameter("categoryId");
+		
+	}
+	
+	@GetMapping("/step/selectCourse")
+	public void selectCourse(HttpServletRequest request, Model model) {
+		String largeCategory = request.getParameter("largeCategory");
 	}
 	
 }
