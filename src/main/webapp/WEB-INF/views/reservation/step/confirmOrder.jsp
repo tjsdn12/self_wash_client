@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/includes/header.jsp"%>
-<link rel="stylesheet" href="/resources/dist/css/selectCourse.css" media="screen">
-<%@include file="/WEB-INF/views/reservation/step/includes/header.jsp"%>
+<link rel="stylesheet" href="/resources/dist/css/confirmOrder.css" media="screen">
     <section class="u-align-center u-clearfix u-section-1" id="carousel_6fa7">
       <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-expanded-width u-tab-links-align-justify u-tabs u-tabs-1">
@@ -30,9 +29,18 @@
         </div>
       </div>
     </section>    
-<%@include file="/WEB-INF/views/reservation/step/includes/btn.jsp"%>
+    <section class="u-clearfix u-section-btn" id="sec-1d29">
+      <div class="u-clearfix u-sheet u-sheet-btn">
+        <a href="https://nicepage.dev" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-prev">이전</a>
+        <a href="https://nicepage.dev" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-next">다음</a>
+      </div>
+    </section>
 <%@include file="/WEB-INF/views/includes/footer.jsp"%>
 <script>
+	function init() {
+		
+	}
+	
 	function callList(largeCategory, middleCategory) {
 		$.ajax({
 			url : '/reservation/step/selectListWashMenu',
@@ -65,11 +73,9 @@
 		 	innerHtml += '  <div class="u-container-layout u-similar-container u-container-layout-2">                                                                          ';
 		 	innerHtml += '    <h3 class="u-text u-text-default u-text-7">'+obj.washMenuId+'. '+obj.menuName+'</h3>                                                                                  ';
 		 	innerHtml += '    <div class="u-border-4 u-border-palette-1-light-2 u-expanded-width u-line u-line-horizontal u-line-2"></div>                                     ';
-		 	if(obj.waterType != null) {
-			 	innerHtml += '    <h4 class="u-text u-text-default u-text-8">탈수 횟수 : '+obj.dehydrationCnt+'회</h4>';
-			 	innerHtml += '    <h4 class="u-text u-text-default u-text-9">물 종류 : '+obj.waterType+'</h4>';
-			 	innerHtml += '    <h4 class="u-text u-text-default u-text-9">헹굼 횟수 : '+obj.rinsingCnt+'회</h4>                                                                                  ';
-		 	}
+		 	innerHtml += '    <h4 class="u-text u-text-default u-text-8">탈수 횟수 : '+obj.dehydrationCnt+'회</h4>';
+		 	innerHtml += '    <h4 class="u-text u-text-default u-text-9">물 종류 : '+obj.waterType+'</h4>';
+		 	innerHtml += '    <h4 class="u-text u-text-default u-text-9">헹굼 횟수 : '+obj.rinsingCnt+'회</h4>                                                                                  ';
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-9">소요시간: '+obj.time+'분</h4>                                                                                  ';
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-10">용량 : '+obj.weight+'</h4>                                                                                 ';
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-11">가격 : '+obj.menuPrice+'원</h4>                                                                                 ';
@@ -80,12 +86,5 @@
 		});
 		$('#tab-'+middleCategory+" .u-repeater").html(innerHtml);
 	}
-	function init() {
-		setStep(2);
-		$('.u-tab-item > a')[0].click();
-	}
-	$(document).ready( () => {
-		init();
-	});
 
 </script>

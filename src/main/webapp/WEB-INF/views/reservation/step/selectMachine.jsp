@@ -3,8 +3,11 @@
 <%@include file="/WEB-INF/views/includes/header.jsp"%>
 <link rel="stylesheet" href="/resources/dist/css/selectMachine.css"
 	media="screen">
+<%@include file="/WEB-INF/views/reservation/step/includes/header.jsp"%>
 <section class="u-align-center u-clearfix u-section-1"
-	id="carousel_c7a2">
+	id="carousel_c7a2" style="background-color: #333333;
+    color: white;
+    margin-top: 100px;">
 	<div class="u-clearfix u-sheet u-sheet-1">
 		<h1 class="u-text u-text-default u-text-1">이용방법</h1>
 		<div class="u-clearfix u-layout-wrap u-layout-wrap-1">
@@ -86,6 +89,62 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="u-align-center u-clearfix u-section-1"
+	id="carousel_c7a2">
+	<div class="u-clearfix u-sheet u-sheet-1">
+		<h1 class="u-text u-text-default u-text-1">기계 사용 현황</h1>
+		<div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+			<div class="u-layout">
+<style>
+	.draggable-aside {
+	position:fixed;
+	width:150px;
+	height:650px;
+	overflow-y:scroll;
+	}
+	.draggable-aside ul {
+	list-style: none;
+	padding:0px;
+	}
+	.draggable-aside li {
+	background:#EDEDED;
+	border: #4444 solid 1px;
+	width:120px;
+	height:100px;
+	}
+	.draggable-table{
+		padding: 10px;
+		position:relative;
+	}
+	.draggable-table td {
+	width:150px;
+	height:150px;
+	border: #4444 solid 1px;
+	}
+</style>
+<div>
+				<table class="draggable-table">
+					<tbody>
+						<c:forEach begin="1" end="${storeInfoVO.storeHeight}" var="y">
+							<tr>
+							<c:forEach begin="1" end="${storeInfoVO.storeWidth}" var="x">
+							<td data-x-coord="${x}" data-y-coord="${y}">
+								<c:forEach items="${equipmentPlacementList}" var="item">
+								<c:if test="${item.xCoord == x and item.yCoord == y}">
+								<h4>${item.equipmentCode}. ${item.equipmentName}</h4>${item.equipmentTypeName}
+								</c:if>
+								</c:forEach>
+							</td>
+							</c:forEach>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+</div>
 			</div>
 		</div>
 	</div>

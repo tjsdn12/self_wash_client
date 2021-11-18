@@ -13,8 +13,7 @@
 <title>Home</title>
 <link rel="stylesheet" href="/resources/dist/css/nicepage.css" media="screen">
 <script class="u-script" type="text/javascript" src="/resources/dist/js/jquery.js"></script>
-<script class="u-script" type="text/javascript" src="/resources/dist/js/nicepage.js"
-	defer=""></script>
+<script class="u-script" type="text/javascript" src="/resources/dist/js/nicepage.js"></script>
 <meta name="generator" content="Nicepage 3.30.2, nicepage.com">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=NanumGothic:400,700,800">
