@@ -97,9 +97,9 @@ public class ReservationServiceImpl implements ReservationService {
         params.add("quantity", "1");
         params.add("total_amount", orderManageVO.getTotalPayment().toString());
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "http://localhost:8080/reservation/step/payment/success");
-        params.add("cancel_url", "http://localhost:8080/reservation/step/payment/cancel");
-        params.add("fail_url", "http://localhost:8080/reservation/step/payment/fail");
+        params.add("approval_url", "http://localhost:8081/reservation/step/payment/success");
+        params.add("cancel_url", "http://localhost:8081/reservation/step/payment/cancel");
+        params.add("fail_url", "http://localhost:8081/reservation/step/payment/fail");
  
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  

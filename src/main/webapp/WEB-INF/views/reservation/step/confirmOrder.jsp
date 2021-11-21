@@ -180,7 +180,7 @@
 	function gridEquipment(obj) {
 		$('#equipmentInfo a').html(obj.equipmentName);
 		$('.equipment-'+obj.equipmentCode).closest('td').addClass('selected');
-		$('.u-image-1').attr('src', 'http://localhost:8081'+obj.equipmentPhoto);
+		$('.u-image-1').attr('src', 'http://localhost:8080'+obj.equipmentPhoto);
 	}
 	
 	function next() {
