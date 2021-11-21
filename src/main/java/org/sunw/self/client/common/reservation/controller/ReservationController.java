@@ -95,16 +95,17 @@ public class ReservationController {
 
 	
 	@GetMapping("/step/payment/success")
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public String success(ReservationDTO reservationDTO, HttpServletRequest request) {
+	public void success(ReservationDTO reservationDTO, HttpServletRequest request) {
 		initReservationDTO(reservationDTO, request);
 		
 		KakaoPayReadyVO kakaoPayReadyVO = (KakaoPayReadyVO)request.getSession().getAttribute("payment");
 		kakaoPayReadyVO.setPg_token(reservationDTO.getPg_token());
 		
+//		ResultDTO result = new ResultDTO();
 		reservationService.getPaymentSuccess(kakaoPayReadyVO);
-		return "redirect:/reservation/step/finishOrder";
+//		result.setSuccess(kakaoPayApprovalVO != null);
+//		result.setData(kakaoPayApprovalVO);
+//		return result;
 	}
 
 	
