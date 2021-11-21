@@ -25,6 +25,8 @@ import org.sunw.self.client.common.main.domain.MainDTO;
 import org.sunw.self.client.common.main.domain.StoreInfoVO;
 import org.sunw.self.client.common.main.service.MainService;
 import org.sunw.self.client.common.reservation.domain.EquipmentManageVO;
+import org.sunw.self.client.common.reservation.domain.KakaoPayApprovalVO;
+import org.sunw.self.client.common.reservation.domain.KakaoPayReadyVO;
 import org.sunw.self.client.common.reservation.domain.ReservationDTO;
 import org.sunw.self.client.common.reservation.domain.WashMenuVO;
 import org.sunw.self.client.common.reservation.service.ReservationService;
@@ -71,6 +73,10 @@ public class ReservationController {
 		List<EquipmentManageVO> equipmentPlacementList = reservationService.getStoreEquipmentPlacementList(reservationDTO.getsId());
 		model.addAttribute("equipmentPlacementList",equipmentPlacementList);
 	}
+	
+	@GetMapping("/step/finishOrder")
+	public void finishOrder(ReservationDTO reservationDTO, Model model, HttpServletRequest request) {
+	}
 
 	
 	@PostMapping("/step/payment")
@@ -79,12 +85,30 @@ public class ReservationController {
 	public ResultDTO payment(ReservationDTO reservationDTO, HttpServletRequest request) {
 		initReservationDTO(reservationDTO, request);
 		ResultDTO result = new ResultDTO();
-		String retUrl = reservationService.getPaymentReady(reservationDTO);
-		result.setSuccess(!ObjectUtils.isEmpty(retUrl));
-		result.setData(retUrl);
+		KakaoPayReadyVO kakaoPayReadyVO = reservationService.getPaymentReady(reservationDTO);
+		request.getSession().setAttribute("payment", kakaoPayReadyVO);
+		result.setSuccess(kakaoPayReadyVO != null);
+		result.setData(kakaoPayReadyVO.getNext_redirect_pc_url());
 		return result;
 	}
+
+
 	
+	@GetMapping("/step/payment/success")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public ResultDTO success(ReservationDTO reservationDTO, HttpServletRequest request) {
+		initReservationDTO(reservationDTO, request);
+		
+		KakaoPayReadyVO kakaoPayReadyVO = (KakaoPayReadyVO)request.getSession().getAttribute("payment");
+		kakaoPayReadyVO.setPg_token(reservationDTO.getPg_token());
+		
+		ResultDTO result = new ResultDTO();
+		KakaoPayApprovalVO kakaoPayApprovalVO = reservationService.getPaymentSuccess(kakaoPayReadyVO);
+		result.setSuccess(kakaoPayApprovalVO != null);
+		result.setData(kakaoPayApprovalVO);
+		return result;
+	}
 
 	
 	@GetMapping("/step/selectListWashMenu")

@@ -1,8 +1,7 @@
 package org.sunw.self.client.common.reservation.domain;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +14,17 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class KakaoPayReadyVO {
+public class KakaoPayReadyVO implements Serializable {
 
-    //response
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9055201059457996317L;
+	//response
     private String tid, next_redirect_pc_url;
     private Date created_at;
+    private String pg_token;
+    
+    private OrderManageVO orderManageVO;
 
 }

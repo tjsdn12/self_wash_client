@@ -14,12 +14,15 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.sunw.self.client.common.reservation.domain.CategoryVO;
 import org.sunw.self.client.common.reservation.domain.EquipmentManageVO;
+import org.sunw.self.client.common.reservation.domain.KakaoPayApprovalVO;
 import org.sunw.self.client.common.reservation.domain.KakaoPayReadyVO;
 import org.sunw.self.client.common.reservation.domain.OrderManageVO;
 import org.sunw.self.client.common.reservation.domain.OrderMenuVO;
 import org.sunw.self.client.common.reservation.domain.ReservationDTO;
 import org.sunw.self.client.common.reservation.domain.WashMenuVO;
 import org.sunw.self.client.common.reservation.mapper.ReservationMapper;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -74,9 +77,9 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	@Override
-	public String getPaymentReady(ReservationDTO reservationDTO) {
+	public KakaoPayReadyVO getPaymentReady(ReservationDTO reservationDTO) {
 
-		insertOrder(reservationDTO);
+		OrderManageVO orderManageVO = insertOrder(reservationDTO);
         RestTemplate restTemplate = new RestTemplate();
  
         // 서버로 요청할 Header
@@ -88,11 +91,11 @@ public class ReservationServiceImpl implements ReservationService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
-        params.add("item_name", "갤럭시S9");
+        params.add("partner_order_id", orderManageVO.getOrderId());
+        params.add("partner_user_id", orderManageVO.getOrderer());
+        params.add("item_name", orderManageVO.getOrderMenuName());
         params.add("quantity", "1");
-        params.add("total_amount", "2100");
+        params.add("total_amount", orderManageVO.getTotalPayment().toString());
         params.add("tax_free_amount", "0");
         params.add("approval_url", "http://localhost:8080/reservation/step/payment/success");
         params.add("cancel_url", "http://localhost:8080/reservation/step/payment/cancel");
@@ -104,10 +107,10 @@ public class ReservationServiceImpl implements ReservationService {
         	KakaoPayReadyVO kakaoPayReadyVO = new KakaoPayReadyVO();
 
         	kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
-            
+        	kakaoPayReadyVO.setOrderManageVO(orderManageVO);
             log.info("" + kakaoPayReadyVO);
             
-            return kakaoPayReadyVO.getNext_redirect_pc_url();
+            return kakaoPayReadyVO;
  
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
@@ -129,6 +132,7 @@ public class ReservationServiceImpl implements ReservationService {
 		WashMenuVO washMenuVO = getWashMenu(reservationDTO);
 		orderManageVO.setTotalPayment(Long.valueOf(washMenuVO.getMenuPrice()));
 		orderManageVO.setMethodOfPayment("kakaopay");
+		orderManageVO.setOrderMenuName(washMenuVO.getMenuName());
 		orderManageVO.setOrderStatus("waiting");
 		orderManageVO.setAccumulatePoint((Long.valueOf(0)));
 		reservationMapper.insertOrder(orderManageVO);
@@ -145,5 +149,46 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		return orderManageVO;
 	}
+	
+	@Override
+    public KakaoPayApprovalVO getPaymentSuccess(KakaoPayReadyVO kakaoPayReadyVO) {
+//    	KakaoPayApprovalVO kakaoPayApprovalVO = new KakaoPayApprovalVO();
+    	OrderManageVO orderManageVO = kakaoPayReadyVO.getOrderManageVO();
+    	
+        RestTemplate restTemplate = new RestTemplate();
+ 
+        // 서버로 요청할 Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + API_KEY);
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+ 
+        // 서버로 요청할 Body
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("tid", kakaoPayReadyVO.getTid());
+        params.add("partner_order_id", orderManageVO.getOrderId());
+        params.add("partner_user_id", orderManageVO.getOrderer());
+        params.add("pg_token", kakaoPayReadyVO.getPg_token());
+        params.add("total_amount", orderManageVO.getTotalPayment().toString());
+        
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        
+        try {
+        	KakaoPayApprovalVO kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+            log.info("" + kakaoPayApprovalVO);
+            reservationMapper.updatePayment(orderManageVO.getOrderId(), "finish");
+            return kakaoPayApprovalVO;
+        
+        } catch (RestClientException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
 
 }

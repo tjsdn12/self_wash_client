@@ -30,5 +30,7 @@ public interface ReservationMapper {
 	public int insertOrder(OrderManageVO orderManageVO);
 	
 	public int insertOrderMenu(OrderMenuVO orderMenuVO);
+	
+	public int updatePayment(@Param("orderId") String orderId, @Param("orderStatus") String orderStatus);
 
 }

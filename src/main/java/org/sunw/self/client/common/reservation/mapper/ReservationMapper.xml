@@ -187,5 +187,12 @@ namespace= "org.sunw.self.client.common.reservation.mapper.ReservationMapper">
 		)
 	</insert>
 	
+	<update id="updatePayment">
+	UPDATE `ORDER` 
+		SET ORDER_STATUS = #{orderStatus}
+		, ORDER_DATE = NOW() 
+	WHERE ORDER_ID = #{orderId}
+	</update>
+	
 </mapper>  
 

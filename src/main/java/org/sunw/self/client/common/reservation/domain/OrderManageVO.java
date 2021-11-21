@@ -1,5 +1,7 @@
 package org.sunw.self.client.common.reservation.domain;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +13,12 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderManageVO {
+public class OrderManageVO implements Serializable {
 	
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3970894108341619072L;
 		String orderId; 			
 		String orderDate; 		
 		String orderer; 			
@@ -21,4 +27,5 @@ public class OrderManageVO {
 		String methodOfPayment; 
 		String orderStatus; 		
 		Long accumulatePoint;  
+		String orderMenuName;	
 }

@@ -25,6 +25,8 @@ public class ReservationDTO extends DefaultDTO{
 	String memId;
 	
 	String phone;
+	
+	String pg_token;
 
 	
 	public String getsId() {
