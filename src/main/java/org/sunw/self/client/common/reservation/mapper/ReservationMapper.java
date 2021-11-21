@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.sunw.self.client.common.reservation.domain.CategoryVO;
 import org.sunw.self.client.common.reservation.domain.EquipmentManageVO;
+import org.sunw.self.client.common.reservation.domain.OrderManageVO;
 import org.sunw.self.client.common.reservation.domain.ReservationDTO;
 import org.sunw.self.client.common.reservation.domain.StoreInfoVO;
 import org.sunw.self.client.common.reservation.domain.WashMenuVO;
@@ -18,5 +19,13 @@ public interface ReservationMapper {
 	public List<WashMenuVO> getListWashMenu(ReservationDTO reservationDTO);
 	
 	public List<CategoryVO> getListCategory(ReservationDTO reservationDTO);
+	
+	public WashMenuVO getWashMenu(ReservationDTO reservationDTO);
+	
+	public List<EquipmentManageVO> getListEquipment(ReservationDTO reservationDTO);
+	
+	public EquipmentManageVO getEquipment(ReservationDTO reservationDTO);
+	
+	public int insertOrder(OrderManageVO orderManageVO);
 
 }

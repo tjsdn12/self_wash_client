@@ -120,15 +120,12 @@ function logout() {
 						<li class="u-nav-item"><a
 							class="u-button-style u-nav-link u-text-body-alt-color"
 							href="Home-1.html">이용안내</a></li>
-						<li class="u-nav-item"><a
-							class="u-button-style u-nav-link u-text-body-alt-color">셀프워시</a>
-						</li>
-						<li class="u-nav-item"><a
-							class="u-button-style u-nav-link u-text-body-alt-color"
-							href="Page-12.html">충전</a></li>
 						<c:if test="${sessionScope.loginInfo == null}"><li class="u-nav-item"><a
 							class="u-button-style u-nav-link u-text-body-alt-color"
 							href="/common/login/login">로그인</a></li></c:if>
+						<c:if test="${sessionScope.loginInfo != null}"><li class="u-nav-item"><a
+							class="u-button-style u-nav-link u-text-body-alt-color"
+							href="#" onclick="logout()">마이페이지</a></li></c:if>
 						<c:if test="${sessionScope.loginInfo != null}"><li class="u-nav-item"><a
 							class="u-button-style u-nav-link u-text-body-alt-color"
 							href="#" onclick="logout()">로그아웃</a></li></c:if>

@@ -75,5 +75,85 @@ namespace= "org.sunw.self.client.common.reservation.mapper.ReservationMapper">
 		WHERE LARGE_CATEGORY = #{largeCategory}
 	</select>	
 	
+	<select id="getWashMenu" 
+		resultType="org.sunw.self.client.common.reservation.domain.WashMenuVO">
+		SELECT WASH_MENU_ID, 
+			MENU_PRICE, 
+			MENU_NAME, 
+			RINSING_CNT, 
+			WEIGHT, 
+			DEHYDRATION_CNT, 
+			A.CATEGORY_ID, 
+			WATER_TYPE, 
+			`TIME`, 
+			MENU_DESC,
+			EQUIPMENT_TYPE
+	FROM SELF_WASH.WASH_MENU A, CATEGORY B
+	WHERE A.CATEGORY_ID = B.CATEGORY_ID
+	AND A.WASH_MENU_ID = #{washMenuId}
+	</select>
+	
+	<select id="getListEquipment" 
+		resultType="org.sunw.self.client.common.reservation.domain.EquipmentManageVO">
+	SELECT A.EQUIPMENT_CODE, 
+		A.TPTB, 
+		A.EQUIPMENT_STATUS, 
+		A.EQUIPMENT_MODEL_ID, 
+		B.EQUIPMENT_NAME,
+		B.EQUIPMENT_TYPE,
+		B.EQUIPMENT_PHOTO,
+		S_ID,
+		(SELECT S_NAME FROM STORE B WHERE A.S_ID = B.S_ID) S_NAME
+	FROM EQUIPMENT A, EQUIPMENT_MODEL B, WASH_MENU_EQUIPMENT_MAPPING C 
+	WHERE A.EQUIPMENT_MODEL_ID = B.EQUIPMENT_MODEL_ID
+	AND B.EQUIPMENT_MODEL_ID = C.EQUIPMENT_MODEL_ID 
+	AND C.WASH_MENU_ID = #{washMenuId}
+	AND A.S_ID = #{sId}
+	ORDER BY EQUIPMENT_CODE DESC
+	</select>
+	
+	<select id="getEquipment" 
+		resultType="org.sunw.self.client.common.reservation.domain.EquipmentManageVO">
+	SELECT A.EQUIPMENT_CODE, 
+		A.TPTB, 
+		A.EQUIPMENT_STATUS, 
+		A.EQUIPMENT_MODEL_ID, 
+		B.EQUIPMENT_NAME,
+		B.EQUIPMENT_TYPE,
+		B.EQUIPMENT_PHOTO,
+		S_ID,
+		(SELECT S_NAME FROM STORE B WHERE A.S_ID = B.S_ID) S_NAME
+	FROM EQUIPMENT A, EQUIPMENT_MODEL B
+	WHERE A.EQUIPMENT_MODEL_ID = B.EQUIPMENT_MODEL_ID
+	AND EQUIPMENT_CODE = #{equipmentCode}
+	ORDER BY EQUIPMENT_CODE DESC
+	</select>
+	
+	<insert id="insertOrder">
+		<selectKey order="AFTER" resultType="int"  keyColumn="ORDER_ID" keyProperty="orderId" >
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `ORDER`
+		(
+			ORDER_DATE
+			, ORDERER
+			, RECIPIENT_PHONE
+			, TOTAL_PAYMENT
+			, METHOD_OF_PAYMENT
+			, ORDER_STATUS
+			, ACCUMULATE_POINT
+		)
+		VALUES
+		(
+			now()
+			, #{orderer}
+			, #{recipientPhone}
+			, #{totalPayment}
+			, #{methodOfPayment}
+			, #{orderStatus}
+			, #{accumulatePoint}
+		)
+	</insert>
+	
 </mapper>  
 

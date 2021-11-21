@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.sunw.self.client.common.domain.ResultDTO;
+import org.sunw.self.client.common.login.domain.LoginVO;
 import org.sunw.self.client.common.main.domain.MainDTO;
 import org.sunw.self.client.common.main.domain.StoreInfoVO;
 import org.sunw.self.client.common.main.service.MainService;
@@ -57,13 +60,29 @@ public class ReservationController {
 	@GetMapping("/step/selectEquipment")
 	public void selectEquipment(ReservationDTO reservationDTO, Model model, HttpServletRequest request) {
 		initReservationDTO(reservationDTO, request);
-		model.addAttribute("category", reservationService.getListCategory(reservationDTO));
+		model.addAttribute("washMenu", reservationService.getWashMenu(reservationDTO));
 	}
 	
 	@GetMapping("/step/confirmOrder")
 	public void confirmOrder(ReservationDTO reservationDTO, Model model, HttpServletRequest request) {
 		initReservationDTO(reservationDTO, request);
-		model.addAttribute("category", reservationService.getListCategory(reservationDTO));
+		ReservationDTO getOne =reservationService.getOneStoreInfo(reservationDTO.getsId());
+		model.addAttribute("storeInfoVO",getOne.getStoreInfoVO());
+		List<EquipmentManageVO> equipmentPlacementList = reservationService.getStoreEquipmentPlacementList(reservationDTO.getsId());
+		model.addAttribute("equipmentPlacementList",equipmentPlacementList);
+	}
+
+	
+	@PostMapping("/step/payment")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public ResultDTO payment(ReservationDTO reservationDTO, HttpServletRequest request) {
+		initReservationDTO(reservationDTO, request);
+		ResultDTO result = new ResultDTO();
+		String retUrl = reservationService.getPaymentReady(reservationDTO);
+		result.setSuccess(ObjectUtils.isEmpty(retUrl));
+		result.setData(retUrl);
+		return result;
 	}
 	
 
@@ -71,7 +90,8 @@ public class ReservationController {
 	@GetMapping("/step/selectListWashMenu")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	public ResultDTO selectListWashMenu(ReservationDTO reservationDTO) {
+	public ResultDTO selectListWashMenu(ReservationDTO reservationDTO, HttpServletRequest request) {
+		initReservationDTO(reservationDTO, request);
 		ResultDTO result = new ResultDTO();
 		List<WashMenuVO> storeInfoList =reservationService.getListWashMenu(reservationDTO);
 		result.setSuccess(storeInfoList!=null);
@@ -79,6 +99,43 @@ public class ReservationController {
 		return result;
 	}
 	
+	@GetMapping("/step/selectListEquipment")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public ResultDTO selectListEquipment(ReservationDTO reservationDTO, HttpServletRequest request) {
+		initReservationDTO(reservationDTO, request);
+		ResultDTO result = new ResultDTO();
+		List<EquipmentManageVO> storeInfoList =reservationService.getListEquipment(reservationDTO);
+		result.setSuccess(storeInfoList!=null);
+		result.setData(storeInfoList);
+		return result;
+	}
+
+	
+	@GetMapping("/step/selectEquipmentInfo")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public ResultDTO selectEquipmentInfo(ReservationDTO reservationDTO, HttpServletRequest request) {
+		initReservationDTO(reservationDTO, request);
+		ResultDTO result = new ResultDTO();
+		EquipmentManageVO storeInfoList =reservationService.getEquipment(reservationDTO);
+		result.setSuccess(storeInfoList!=null);
+		result.setData(storeInfoList);
+		return result;
+	}
+
+	
+	@GetMapping("/step/selectWashMenuInfo")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public ResultDTO selectWashMenuInfo(ReservationDTO reservationDTO, HttpServletRequest request) {
+		initReservationDTO(reservationDTO, request);
+		ResultDTO result = new ResultDTO();
+		WashMenuVO storeInfoList =reservationService.getWashMenu(reservationDTO);
+		result.setSuccess(storeInfoList!=null);
+		result.setData(storeInfoList);
+		return result;
+	}
 
 	
 	private ReservationDTO initReservationDTO(ReservationDTO reservationDTO, HttpServletRequest request) {
@@ -95,6 +152,12 @@ public class ReservationController {
 		if(reservationDTO.getEquipmentCode() != null && !reservationDTO.getEquipmentCode().isEmpty()) {
 			session.setAttribute("equipmentCode", reservationDTO.getEquipmentCode());
 		}
+		LoginVO loginInfo = (LoginVO)session.getAttribute("loginInfo");
+		String memId = loginInfo.getMemId();
+		String phone = loginInfo.getPhone();
+		
+		reservationDTO.setMemId(memId);
+		reservationDTO.setPhone(phone);
 		reservationDTO.setsId((String)session.getAttribute("sId"));
 		reservationDTO.setLargeCategory((String)session.getAttribute("largeCategory"));
 		reservationDTO.setWashMenuId((String)session.getAttribute("washMenuId"));

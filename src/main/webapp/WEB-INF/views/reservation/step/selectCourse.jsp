@@ -74,7 +74,7 @@
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-10">용량 : '+obj.weight+'</h4>                                                                                 ';
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-11">가격 : '+obj.menuPrice+'원</h4>                                                                                 ';
 		 	innerHtml += '    <p class="u-text u-text-default u-text-12">'+obj.menuDesc+'</p> ';
-		 	innerHtml += '    <a href="" class="u-border-none u-btn u-button-style u-palette-1-light-1 u-btn-2">선택</a>                                                        ';
+		 	innerHtml += '    <a href="/reservation/step/selectEquipment?washMenuId='+obj.washMenuId+'" class="u-border-none u-btn u-button-style u-palette-1-light-1 u-btn-2">선택</a>                                                        ';
 		 	innerHtml += '  </div>                                                                                                                                             ';
 		 	innerHtml += '</div>                                                                                                                                               ';
 		});

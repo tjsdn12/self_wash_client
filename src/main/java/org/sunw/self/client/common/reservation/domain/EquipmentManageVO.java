@@ -29,6 +29,7 @@ public class EquipmentManageVO {
 	String equipmentStatus;
 	Integer equipmentModelId;
 	String equipmentName;
+	String equipmentPhoto;
 	String regularInspection;
 	String regularInspectionDate;
 	String purchasePrice;

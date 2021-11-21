@@ -21,6 +21,10 @@ public class ReservationDTO extends DefaultDTO{
 	String washMenuId;
 	
 	String equipmentCode;
+	
+	String memId;
+	
+	String phone;
 
 	
 	public String getsId() {

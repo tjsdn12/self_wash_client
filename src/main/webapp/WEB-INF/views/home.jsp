@@ -14,7 +14,7 @@
                   <div class="u-align-left u-container-style u-layout-cell u-left-cell u-similar-fill u-size-30 u-layout-cell-1">
                     <div class="u-container-layout u-container-layout-2">
                       <h2 class="u-text u-text-body-alt-color u-text-2">Location</h2>
-                      <p class="u-text u-text-body-alt-color u-text-3">서비스를 이용하실 주소를 입력해 주세요.</p>
+                      <p class="u-text u-text-body-alt-color u-text-3">서비스를 이용하실 주소 혹은 매장 이름을 입력해 주세요.</p>
                       
                       <input type="text" class="u-container-style u-group u-shape-rectangle u-group-2" onkeyup="searchStore()" id="searchStore"
                       style="min-height:20px;padding-top:7px;"/>

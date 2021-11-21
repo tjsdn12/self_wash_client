@@ -14,9 +14,17 @@ public interface ReservationService {
 	
 	public List<EquipmentManageVO> getStoreEquipmentPlacementList(String sId);
 	
-	public List<WashMenuVO> getListWashMenu(ReservationDTO reservationDTO);
-
 	public List<CategoryVO> getListCategory(ReservationDTO reservationDTO);
+
+	public List<WashMenuVO> getListWashMenu(ReservationDTO reservationDTO);
+	
+	public WashMenuVO getWashMenu(ReservationDTO reservationDTO);
+	
+	public List<EquipmentManageVO> getListEquipment(ReservationDTO reservationDTO);
+	
+	public EquipmentManageVO getEquipment(ReservationDTO reservationDTO);
+	
+	public String getPaymentReady(ReservationDTO reservationDTO);
 	
 	
 }
