@@ -33,7 +33,8 @@
                   <label for="checkbox-4f10" class="u-label">개인 정보 처리 방침에 동의합니다.</label>
                 </div>
                 <div class="u-align-center u-form-group u-form-submit u-form-group-5">
-                  <a href="#" class="u-border-2 u-border-black u-btn u-btn-submit u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-1">회원가입<br>
+                  <a href="#" class="u-border-2 u-border-black u-btn u-btn-submit u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-1">
+                  회원가입<br>
                   </a>
                   <input type="submit" value="submit" class="u-form-control-hidden" wfd-invisible="true">
                 </div>
