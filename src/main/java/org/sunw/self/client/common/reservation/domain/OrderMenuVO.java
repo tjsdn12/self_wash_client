@@ -21,12 +21,6 @@ public class OrderMenuVO {
 	String washMenuId;	
 	String memId;
 	String orderId;
-	
-	public void setorderMenuId(String orderMenuId) {
-		this.orderMenuId=orderMenuId;
-	}
-	public String getorderMenuId() {
-		return this.orderMenuId;
-	}
+	String equipmentCode;
 
 }

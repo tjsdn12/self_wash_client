@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.sunw.self.client.common.reservation.domain.CategoryVO;
 import org.sunw.self.client.common.reservation.domain.EquipmentManageVO;
 import org.sunw.self.client.common.reservation.domain.OrderManageVO;
+import org.sunw.self.client.common.reservation.domain.OrderMenuVO;
 import org.sunw.self.client.common.reservation.domain.ReservationDTO;
 import org.sunw.self.client.common.reservation.domain.StoreInfoVO;
 import org.sunw.self.client.common.reservation.domain.WashMenuVO;
@@ -27,5 +28,7 @@ public interface ReservationMapper {
 	public EquipmentManageVO getEquipment(ReservationDTO reservationDTO);
 	
 	public int insertOrder(OrderManageVO orderManageVO);
+	
+	public int insertOrderMenu(OrderMenuVO orderMenuVO);
 
 }

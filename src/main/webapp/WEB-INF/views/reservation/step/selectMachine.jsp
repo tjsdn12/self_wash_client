@@ -36,6 +36,15 @@
 	.draggable-table td.selected {
 		background: #ffa6b9 !important;
 	}
+	.draggable-table td.used {
+		background: #fdedb6 !important;
+	}
+	.draggable-table td h6.equipment-type {
+		font-weight: 400;
+	}
+	.draggable-table td h6.remaining-time {
+		font-weight: 600;
+	}
 </style>
 <section class="u-align-center u-clearfix u-section-1"
 	id="carousel_c7a2" style="background-color: #333333;
@@ -54,19 +63,17 @@
 										class="u-align-center u-container-style u-layout-cell u-size-13 u-layout-cell-1">
 										<div class="u-container-layout u-container-layout-1">
 											<h2 class="u-text u-text-2">1</h2>
-											<h6 class="u-custom-font u-font-montserrat u-text u-text-3">clothes</h6>
+											<h6 class="u-custom-font u-font-montserrat u-text u-text-3">세탁종류선택</h6>
 										</div>
 									</div>
 									<div
 										class="u-container-style u-layout-cell u-size-47 u-layout-cell-2">
 										<div
 											class="u-container-layout u-valign-middle u-container-layout-2">
-											<p
-												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-4">Sample
-												text. Click to select the text box. Click again or double
-												click to start editing the text. Sample text. Click to
-												select the text box. Click again or double click to start
-												editing the text.</p>
+											<p class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-4">
+												매장에 배치된 세탁기의 위치를 확인하고, 세탁기 사용 현황을 파악할 수 있습니다. 이용 중인 세탁기는 노란색으로 표시되며, 남은 시간이 표시됩니다.
+												이용할 세탁기의 종류(세탁기, 건조기, 신발 세탁)를 선택합니다.
+											</p>
 										</div>
 									</div>
 								</div>
@@ -79,7 +86,7 @@
 											class="u-container-layout u-valign-middle u-container-layout-3">
 											<h2 class="u-align-center u-text u-text-5">2</h2>
 											<h6
-												class="u-align-center u-custom-font u-font-montserrat u-text u-text-6">footwear</h6>
+												class="u-align-center u-custom-font u-font-montserrat u-text u-text-6">코스선택</h6>
 										</div>
 									</div>
 									<div
@@ -87,11 +94,8 @@
 										<div
 											class="u-container-layout u-valign-middle u-container-layout-4">
 											<p
-												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-7">Sample
-												text. Click to select the text box. Click again or double
-												click to start editing the text. Sample text. Click to
-												select the text box. Click again or double click to start
-												editing the text.</p>
+												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-7">
+												세탁 메뉴의 분류를 선택하여, 이용하실 세탁 메뉴를 골라서 선택을 클릭합니다.</p>
 										</div>
 									</div>
 								</div>
@@ -99,22 +103,68 @@
 							<div class="u-size-20">
 								<div class="u-layout-row">
 									<div
-										class="u-align-center u-container-style u-layout-cell u-size-13 u-layout-cell-5">
-										<div class="u-container-layout u-container-layout-5">
-											<h2 class="u-text u-text-8">3</h2>
-											<h6 class="u-custom-font u-font-montserrat u-text u-text-9">bags</h6>
+										class="u-container-style u-layout-cell u-size-13 u-layout-cell-3">
+										<div
+											class="u-container-layout u-valign-middle u-container-layout-3">
+											<h2 class="u-align-center u-text u-text-5">3</h2>
+											<h6
+												class="u-align-center u-custom-font u-font-montserrat u-text u-text-6">기계선택</h6>
 										</div>
 									</div>
 									<div
-										class="u-container-style u-layout-cell u-size-47 u-layout-cell-6">
+										class="u-container-style u-layout-cell u-size-47 u-layout-cell-4">
 										<div
-											class="u-container-layout u-valign-middle u-container-layout-6">
+											class="u-container-layout u-valign-middle u-container-layout-4">
 											<p
-												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-10">Sample
-												text. Click to select the text box. Click again or double
-												click to start editing the text. Sample text. Click to
-												select the text box. Click again or double click to start
-												editing the text.</p>
+												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-7">
+												2에서 선택한 코스가 포함된 세탁기가 장비선택에 표시되며, 이용할 장비를 선택하여 다음을 클릭합니다.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="u-size-20">
+								<div class="u-layout-row">
+									<div
+										class="u-container-style u-layout-cell u-size-13 u-layout-cell-3">
+										<div
+											class="u-container-layout u-valign-middle u-container-layout-3">
+											<h2 class="u-align-center u-text u-text-5">4</h2>
+											<h6
+												class="u-align-center u-custom-font u-font-montserrat u-text u-text-6">확인</h6>
+										</div>
+									</div>
+									<div
+										class="u-container-style u-layout-cell u-size-47 u-layout-cell-4">
+										<div
+											class="u-container-layout u-valign-middle u-container-layout-4">
+											<p
+												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-7">
+												세탁기 위치 확인에서 선택한 장비의 위치를 확인(붉은색으로 표시)하고, 주문정보 확인에서 선택한 세탁 메뉴 및 장비의 상세 정보를 확인한 후 결제를 클릭하여 
+												결제를 진행합니다.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="u-size-20">
+								<div class="u-layout-row">
+									<div
+										class="u-container-style u-layout-cell u-size-13 u-layout-cell-3">
+										<div
+											class="u-container-layout u-valign-middle u-container-layout-3">
+											<h2 class="u-align-center u-text u-text-5">5</h2>
+											<h6
+												class="u-align-center u-custom-font u-font-montserrat u-text u-text-6">완료</h6>
+										</div>
+									</div>
+									<div
+										class="u-container-style u-layout-cell u-size-47 u-layout-cell-4">
+										<div
+											class="u-container-layout u-valign-middle u-container-layout-4">
+											<p
+												class="u-custom-font u-heading-font u-text u-text-grey-40 u-text-7">
+												결제가 완료되면, 세탁기에 세탁물을 넣고 시작 버튼을 클릭하여 세탁을 하시면 됩니다!
+												결제 내역 및 세탁기 이용 내역은 마이페이지에서 확인하실 수 있습니다.
+												</p>
 										</div>
 									</div>
 								</div>
@@ -129,8 +179,8 @@
 <section class="u-align-center u-clearfix u-section-1"
 	id="carousel_c7a2">
 	<div class="u-clearfix u-sheet u-sheet-1">
-		<h1 class="u-text u-text-default u-text-1">기계 사용 현황</h1>
-		<div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+		<h1 class="u-text u-text-default u-text-1">세탁기 사용 현황</h1>
+		<div class="u-clearfix u-layout-wrap u-layout-wrap-1" style="padding-top:30px;">
 			<div class="u-layout">
 				<div>
 				<table class="draggable-table">
@@ -141,7 +191,9 @@
 							<td data-x-coord="${x}" data-y-coord="${y}">
 								<c:forEach items="${equipmentPlacementList}" var="item">
 								<c:if test="${item.xCoord == x and item.yCoord == y}">
-								<h4>${item.equipmentCode}. ${item.equipmentName}</h4>${item.equipmentTypeName}
+								<h4>${item.equipmentCode}. ${item.equipmentName}</h4>
+								<h6 class="equipment-type">${item.equipmentTypeName}</h6>
+								<h6 class="remaining-time">${item.remainingTime}</h6>
 								</c:if>
 								</c:forEach>
 							</td>
@@ -247,8 +299,21 @@
 	</div>
 </section>
 <script>
+	function getTime(seconds) {
+		var min = parseInt(seconds/60);
+		var sec = seconds%60;
+		return (min<10?"0":"")+min+":"+(sec<10?"0":"")+sec
+	}
 	function decorateTable() {
-		$('.draggable-table td').filter((idx, obj) => $(obj).html().trim() != '').each((idx, obj) => $(obj).addClass('equipment'));
+		const equipmentTd = $('.draggable-table td').filter((idx, obj) => $(obj).html().trim() != '');
+		equipmentTd.each((idx, obj) => $(obj).addClass('equipment'));
+		equipmentTd.filter((idx, obj) => $(obj).children('.remaining-time').html().trim() != '')
+		.each((idx, obj) => {
+			$(obj).addClass('used');
+			const remainingTime = $(obj).children('.remaining-time').html();
+			$(obj).children('.remaining-time').html(getTime(remainingTime));
+			$(obj).children('h4').append('(사용중)');
+		});
 	}
 	$(document).ready( () => {
 		decorateTable();

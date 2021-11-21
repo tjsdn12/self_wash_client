@@ -80,7 +80,7 @@ public class ReservationController {
 		initReservationDTO(reservationDTO, request);
 		ResultDTO result = new ResultDTO();
 		String retUrl = reservationService.getPaymentReady(reservationDTO);
-		result.setSuccess(ObjectUtils.isEmpty(retUrl));
+		result.setSuccess(!ObjectUtils.isEmpty(retUrl));
 		result.setData(retUrl);
 		return result;
 	}

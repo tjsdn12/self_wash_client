@@ -16,6 +16,7 @@ import org.sunw.self.client.common.reservation.domain.CategoryVO;
 import org.sunw.self.client.common.reservation.domain.EquipmentManageVO;
 import org.sunw.self.client.common.reservation.domain.KakaoPayReadyVO;
 import org.sunw.self.client.common.reservation.domain.OrderManageVO;
+import org.sunw.self.client.common.reservation.domain.OrderMenuVO;
 import org.sunw.self.client.common.reservation.domain.ReservationDTO;
 import org.sunw.self.client.common.reservation.domain.WashMenuVO;
 import org.sunw.self.client.common.reservation.mapper.ReservationMapper;
@@ -106,7 +107,7 @@ public class ReservationServiceImpl implements ReservationService {
             
             log.info("" + kakaoPayReadyVO);
             
-            return "redirect:"+kakaoPayReadyVO.getNext_redirect_pc_url();
+            return kakaoPayReadyVO.getNext_redirect_pc_url();
  
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
@@ -131,6 +132,16 @@ public class ReservationServiceImpl implements ReservationService {
 		orderManageVO.setOrderStatus("waiting");
 		orderManageVO.setAccumulatePoint((Long.valueOf(0)));
 		reservationMapper.insertOrder(orderManageVO);
+		
+		OrderMenuVO orderMenuVO = new OrderMenuVO();
+		orderMenuVO.setOrderId(orderManageVO.getOrderId());
+		orderMenuVO.setWashMenuId(reservationDTO.getWashMenuId());
+		orderMenuVO.setAmount(1);
+		orderMenuVO.setMemId(reservationDTO.getMemId());
+		orderMenuVO.setPrice(Long.valueOf(washMenuVO.getMenuPrice()));
+		orderMenuVO.setEquipmentCode(reservationDTO.getEquipmentCode());
+		orderMenuVO.setOrderMenuName(washMenuVO.getMenuName());
+		reservationMapper.insertOrderMenu(orderMenuVO);
 		
 		return orderManageVO;
 	}

@@ -36,6 +36,16 @@
 	.draggable-table td.selected {
 		background: #ffa6b9 !important;
 	}
+	.draggable-table td.used {
+		background: #fdedb6 !important;
+	}
+	.draggable-table td h6.equipment-type {
+		font-weight: 400;
+	}
+	.draggable-table td h6.remaining-time {
+		font-weight: 600;
+	}
+	
 </style>
 
 	<section class="u-align-center u-clearfix u-section-1"
@@ -52,9 +62,11 @@
 										<c:forEach begin="1" end="${storeInfoVO.storeWidth}" var="x">
 											<td data-x-coord="${x}" data-y-coord="${y}">
 												<c:forEach items="${equipmentPlacementList}" var="item">
-													<c:if test="${item.xCoord == x and item.yCoord == y}">
-															<h4 class="equipment-${item.equipmentCode}">${item.equipmentCode}. ${item.equipmentName}</h4>${item.equipmentTypeName}
-													</c:if>
+												<c:if test="${item.xCoord == x and item.yCoord == y}">
+												<h4 class="equipment-${item.equipmentCode}">${item.equipmentCode}. ${item.equipmentName}</h4>
+												<h6 class="equipment-type">${item.equipmentTypeName}</h6>
+												<h6 class="remaining-time">${item.remainingTime}</h6>
+												</c:if>
 												</c:forEach>
 											</td>
 										</c:forEach>
@@ -92,10 +104,22 @@
 <%@include file="/WEB-INF/views/reservation/step/includes/btn.jsp"%>
 <%@include file="/WEB-INF/views/includes/footer.jsp"%>
 <script>
-	function decorateTable() {
-		$('.draggable-table td').filter((idx, obj) => $(obj).html().trim() != '').each((idx, obj) => $(obj).addClass('equipment'));
+	function getTime(seconds) {
+		var min = parseInt(seconds/60);
+		var sec = seconds%60;
+		return (min<10?"0":"")+min+":"+(sec<10?"0":"")+sec
 	}
-
+	function decorateTable() {
+		const equipmentTd = $('.draggable-table td').filter((idx, obj) => $(obj).html().trim() != '');
+		equipmentTd.each((idx, obj) => $(obj).addClass('equipment'));
+		equipmentTd.filter((idx, obj) => $(obj).children('.remaining-time').html().trim() != '')
+		.each((idx, obj) => {
+			$(obj).addClass('used');
+			const remainingTime = $(obj).children('.remaining-time').html();
+			$(obj).children('.remaining-time').html(getTime(remainingTime));
+			$(obj).children('h4').append('(사용중)');
+		});
+	}
 	function callWashMenu() {
 		$.ajax({
 			url : '/reservation/step/selectWashMenuInfo',

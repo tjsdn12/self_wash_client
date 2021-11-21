@@ -39,11 +39,21 @@ namespace= "org.sunw.self.client.common.reservation.mapper.ReservationMapper">
 		C.S_ID, 
 		C.EQUIPMENT_CODE, 
 		C.X_COORD, 
-		C.Y_COORD
+		C.Y_COORD,
+		(
+			SELECT TIMESTAMPDIFF(SECOND, NOW(), DATE_ADD(ORDER_DATE, INTERVAL TIME MINUTE)) REMAINING_TIME 
+			FROM  `ORDER` D, ORDER_MENU E, WASH_MENU F 
+			WHERE 
+				D.ORDER_ID = E.ORDER_ID 
+				AND E.WASH_MENU_ID = F.WASH_MENU_ID 
+				AND E.EQUIPMENT_CODE = A.EQUIPMENT_CODE
+				AND TIMESTAMPDIFF(SECOND, NOW(), DATE_ADD(ORDER_DATE, INTERVAL TIME MINUTE)) > 0
+				AND D.ORDER_STATUS = 'finish'
+		) REMAINING_TIME
 	FROM EQUIPMENT A, STORE_EQUIPMENT_PLACEMENT C
-		WHERE A.S_ID = #{sId}
+	WHERE A.S_ID = #{sId}
 		AND A.EQUIPMENT_CODE = C.EQUIPMENT_CODE
-		ORDER BY A.EQUIPMENT_CODE DESC
+	ORDER BY A.EQUIPMENT_CODE DESC
 	</select>
 	
 	<select id="getListWashMenu" 
@@ -130,7 +140,7 @@ namespace= "org.sunw.self.client.common.reservation.mapper.ReservationMapper">
 	</select>
 	
 	<insert id="insertOrder">
-		<selectKey order="AFTER" resultType="int"  keyColumn="ORDER_ID" keyProperty="orderId" >
+		<selectKey order="AFTER" resultType="String"  keyColumn="ORDER_ID" keyProperty="orderId" >
 		SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO `ORDER`
@@ -152,6 +162,28 @@ namespace= "org.sunw.self.client.common.reservation.mapper.ReservationMapper">
 			, #{methodOfPayment}
 			, #{orderStatus}
 			, #{accumulatePoint}
+		)
+	</insert>
+	<insert id="insertOrderMenu">
+	INSERT INTO ORDER_MENU
+		(
+			ORDER_MENU_NAME
+			, PRICE
+			, AMOUNT
+			, WASH_MENU_ID
+			, MEM_ID
+			, ORDER_ID
+			, EQUIPMENT_CODE
+		)
+		VALUES
+		(
+			#{orderMenuName}
+			, #{price}
+			, #{amount}
+			, #{washMenuId}
+			, #{memId}
+			, #{orderId}
+			, #{equipmentCode}
 		)
 	</insert>
 	

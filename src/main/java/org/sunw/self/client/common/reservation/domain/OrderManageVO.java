@@ -21,11 +21,4 @@ public class OrderManageVO {
 		String methodOfPayment; 
 		String orderStatus; 		
 		Long accumulatePoint;  
-	
-		public void setorderId(String orderId) {
-			this.orderId=orderId;
-		}
-		public String getorderId() {
-			return this.orderId;
-		}
 }

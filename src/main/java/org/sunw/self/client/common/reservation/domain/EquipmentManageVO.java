@@ -39,6 +39,7 @@ public class EquipmentManageVO {
 	String sName;
 	String xCoord;
 	String yCoord;
+	Integer remainingTime;
 
 	public String getEquipmentTypeName() {
 		return equipmentTypeNames.get(equipmentType);
