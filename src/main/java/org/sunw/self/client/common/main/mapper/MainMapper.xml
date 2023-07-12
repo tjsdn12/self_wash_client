@@ -18,7 +18,8 @@
 			MANAGER_RESIDENT_NUMBER,
 			POST_CODE
 		FROM STORE 
-		WHERE S_LOCATION LIKE CONCAT('%',#{searchStore},'%') OR S_NAME LIKE CONCAT('%',#{searchStore},'%')
+		WHERE (S_LOCATION LIKE CONCAT('%',#{searchStore},'%') OR S_NAME LIKE CONCAT('%',#{searchStore},'%'))
+		AND STORE_WIDTH > 0
 	</select>
 	
 </mapper>

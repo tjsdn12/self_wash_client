@@ -143,7 +143,7 @@
 		let innerHtml = "";
 	 	innerHtml += '    <h3 class="u-text u-text-default u-text-2">'+obj.washMenuId+'. '+obj.menuName+'</h3>                                                                                  ';
 	 	innerHtml += '     <div class="u-border-4 u-border-palette-1-light-2 u-expanded-width u-line u-line-horizontal u-line-1"></div>                                     ';
-	 	if(obj.waterType != null) {
+	 	if(obj.waterType > 0 ) {
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-3">탈수 횟수 : '+obj.dehydrationCnt+'회</h4>';
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-3">물 종류 : '+obj.waterType+'</h4>';
 		 	innerHtml += '    <h4 class="u-text u-text-default u-text-3">헹굼 횟수 : '+obj.rinsingCnt+'회</h4>                                                                                  ';
@@ -180,7 +180,7 @@
 	function gridEquipment(obj) {
 		$('#equipmentInfo a').html(obj.equipmentName);
 		$('.equipment-'+obj.equipmentCode).closest('td').addClass('selected');
-		$('.u-image-1').attr('src', 'http://localhost:8080'+obj.equipmentPhoto);
+		$('.u-image-1').attr('src', 'http://13.239.96.179:8080'+obj.equipmentPhoto);
 	}
 	
 	function next() {

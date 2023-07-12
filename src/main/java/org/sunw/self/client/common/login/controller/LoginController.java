@@ -21,47 +21,40 @@ import org.sunw.self.client.common.login.service.LoginService;
 @Controller
 @RequestMapping("/common/login")
 public class LoginController {
-	
+
 	@Autowired
 	LoginService loginService;
-	
-	
+
 	@GetMapping("/login")
 	public void loginForm(LoginDTO loginDTO, Model model) {
-		
-		model.addAttribute("loginInfo" , loginService.getLoginInfo(loginDTO));
-		
+
+		model.addAttribute("loginInfo", loginService.getLoginInfo(loginDTO));
+
 	}
-	
-	
+
 	@PostMapping("/login")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	public ResultDTO logInfo(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
 		ResultDTO result = new ResultDTO();
-		LoginVO loginInfo =loginService.getLoginInfo(loginDTO);
-		boolean isSuccess = loginInfo != null; 
+		LoginVO loginInfo = loginService.getLoginInfo(loginDTO);
+		boolean isSuccess = loginInfo != null;
 		result.setSuccess(isSuccess);
-		String message = isSuccess?"로그인 되었습니다.":"핸드폰번호 혹은 비밀번호가 일치하지 않습니다.";
+		String message = isSuccess ? "로그인 되었습니다." : "핸드폰번호 혹은 비밀번호가 일치하지 않습니다.";
 		result.setMessage(message);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginInfo", loginInfo);
-		//로그아웃 세션에 저장된 정보 를 삭제시킴
-		//session.invalidate();
+		// 로그아웃 세션에 저장된 정보 를 삭제시킴
+		// session.invalidate();
 
 //		HttpSession session = request.getSession();
-		//세션에 저장된 정보를 가져옴
+		// 세션에 저장된 정보를 가져옴
 //		LoginInfo loginInfo = session.getAttribute("loginInfo");
-		
+
 		return result;
-		
+
 	}
-	
-	
-	
-	
-	
-	
+
 	@PostMapping("/logout")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
@@ -69,12 +62,8 @@ public class LoginController {
 		ResultDTO result = new ResultDTO();
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
+
 		return result;
 	}
-	
-	
 
-	
-	
 }

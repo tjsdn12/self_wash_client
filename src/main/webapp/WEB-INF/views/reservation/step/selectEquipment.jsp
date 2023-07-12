@@ -68,7 +68,7 @@
 
 	function loadImg(e) {
 		const a = $('#equipmentCode :selected')[0];
-		$('.u-image-1').attr('src', 'http://localhost:8080'+a.dataset.img);
+		$('.u-image-1').attr('src', 'http://13.239.96.179:8080'+a.dataset.img);
 	}
 	
 	function next() {
